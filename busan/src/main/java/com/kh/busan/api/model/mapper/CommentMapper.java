@@ -14,5 +14,4 @@ public interface CommentMapper {
 	void save(CommentDTO comment);
 
 	List<CommentDTO> getComments(Long foodNo);
-	
 }

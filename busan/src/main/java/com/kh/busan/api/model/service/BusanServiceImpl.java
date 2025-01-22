@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BusanServiceImpl implements BusanService {
 
-	private final CommentMapper mapper = null;
+	private final CommentMapper mapper; 
 
 	@Override
 	public String getBusan(int page) {
@@ -66,13 +66,14 @@ public class BusanServiceImpl implements BusanService {
 
 	@Override
 	public void save(CommentDTO comment) {
+		if(comment.getWriter().equals("") || comment.getContent().equals("")) {
+			System.out.println("예외발생");
+		}
 		mapper.save(comment);
-		
 	}
 
 	@Override
 	public List<CommentDTO> getComments(Long foodNo) {
-		
 		return mapper.getComments(foodNo);
 	}
 
