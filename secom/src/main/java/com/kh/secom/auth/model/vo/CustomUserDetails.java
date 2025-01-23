@@ -1,0 +1,22 @@
+package com.kh.secom.auth.model.vo;
+
+import java.util.Collection;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.ToString;
+
+@ToString
+@Data
+@AllArgsConstructor
+@Builder
+public class CustomUserDetails implements UserDetails {
+	private Long userNo;
+	private String username;
+	private String password;
+	private Collection<? extends GrantedAuthority> authorities;	// 권한 관련
+}
