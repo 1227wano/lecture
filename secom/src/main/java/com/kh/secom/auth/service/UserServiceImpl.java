@@ -18,29 +18,26 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserDetailsService {
 	// AuthenticationManager가 실질적으로 사용자의 정보를 조회하는데 사용할 클래스
-	
+
 	private final MemberMapper mapper;
-	
+
 	@Override
 	public UserDetails loadUserByUsername(String username) {
-		
-		// UsernamePasswordAuthenticationToken에서 뽑아온 매개변수 username으로 mapper에서 조회 
-		
+
+		// UsernamePasswordAuthenticationToken에서 뽑아온 매개변수 username으로 mapper에서 조회
+
 		Member user = mapper.findByUserId(username);
-		
-		if(user == null) {
+
+		if (user == null) {
 			throw new UsernameNotFoundException("존재하지 않는 사용자입니다.");
 		}
-		
+
 		// (여기로 넘어온다면,) 사용자가 입력한 아이디값이 테이블에 존재하긴 함
 		// 조회된 정보를 UserDetail 자료형으로 만들어서 CustomUserDetail로 반환
-		
-		return CustomUserDetails.builder()
-								.userNo(user.getUserNo())
-								.username(user.getUserId())
-								.password(user.getUserPwd())
-								.authorities(Collections.singletonList(new SimpleGrantedAuthority(user.getRole())))
-								.build();
+
+		return CustomUserDetails.builder().userNo(user.getUserNo()).username(user.getUserId())
+				.password(user.getUserPwd())
+				.authorities(Collections.singletonList(new SimpleGrantedAuthority(user.getRole()))).build();
 	}
-	
+
 }
